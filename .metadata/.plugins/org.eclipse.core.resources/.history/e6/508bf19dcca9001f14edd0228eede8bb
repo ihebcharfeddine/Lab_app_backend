@@ -1,0 +1,62 @@
+package com.example.demo.service;
+
+import com.example.demo.entity.Publication;
+
+import lombok.AllArgsConstructor;
+
+import com.example.demo.dao.PublicationRepository;
+
+import org.springframework.stereotype.Service;
+import java.util.List;
+import java.util.Optional;
+
+@Service
+@AllArgsConstructor
+public class PublicationService implements IPublicationService {
+
+	PublicationRepository publicationRepository;
+
+	public Publication addPublication(Publication publication) {
+		return publicationRepository.save(publication);
+	}
+
+
+	public Publication updatePublication(Publication publication) {
+			return publicationRepository.save(publication);
+	}
+
+	// Delete a publication by ID
+	public void deletePublication(Long id) {
+		if (publicationRepository.existsById(id)) {
+			publicationRepository.deleteById(id);
+		} else {
+			throw new RuntimeException("Publication not found for id: " + id);
+		}
+	}
+
+	// Find a publication by ID
+	public Optional<Publication> findPublicationById(Long id) {
+		return publicationRepository.findById(id);
+	}
+
+	// Find all publications
+	public List<Publication> findAllPublications() {
+		return publicationRepository.findAll();
+	}
+
+	// Find publications by titre
+	public List<Publication> findPublicationsByTitre(String titre) {
+		return publicationRepository.findByTitre(titre);
+	}
+
+	// Find publications by type
+	public List<Publication> findPublicationsByType(String type) {
+		return publicationRepository.findByType(type);
+	}
+
+	// Find publications by lien
+	public List<Publication> findPublicationsByLien(String lien) {
+		return publicationRepository.findByLien(lien);
+	}
+
+}
